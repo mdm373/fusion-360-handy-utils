@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"70ac276b-9802-4845-b446-c9ab37bc1c23",
+	"author":	"https://github.com/mdm373",
+	"description":	{
+		"":	"A set of handy utils for creating 3D printable designs"
+	},
+	"version":	"0.0.1",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
