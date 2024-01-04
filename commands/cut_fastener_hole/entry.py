@@ -41,6 +41,13 @@ SIZE_CONF = {
         'hex_nut_diameter': '5.5mm',
         'hex_nut_length': '2.4mm'
     },
+    'M2.5': {
+        'bore_diameter': '2.5mm',
+        'socket_diameter': '4.4mm',
+        'socket_length': '2.2mm',
+        'hex_nut_diameter': '4.8mm',
+        'hex_nut_length': '2.0mm'
+    },
     'M2': {
         'bore_diameter': '2mm',
         'socket_diameter': '3.8mm',
@@ -344,10 +351,11 @@ def draw_dimensioned_hex(sketch: adsk.fusion.Sketch, center: adsk.fusion.SketchP
 
 def draw_dimensioned_circle(sketch: adsk.fusion.Sketch, center: adsk.fusion.SketchPoint, diameter: float, dimension_dir: adsk.core.Vector3D):
     projected_center : adsk.fusion.SketchPoint = sketch.project(center).item(0)
-    dimension_point = projected_center.geometry.copy()
+    dimension_point = projected_center.geometry
     dimension_dir.scaleBy(diameter / 4.0)
     dimension_point.translateBy(dimension_dir)    
-    circle = sketch.sketchCurves.sketchCircles.addByCenterRadius(projected_center, diameter / 2.0)
+    circle = sketch.sketchCurves.sketchCircles.addByCenterRadius(projected_center.geometry.copy(), diameter / 2.0)
+    sketch.geometricConstraints.addCoincident(circle.centerSketchPoint, projected_center)
     dimension = sketch.sketchDimensions.addDiameterDimension(circle, dimension_point)
     return circle, dimension
 
